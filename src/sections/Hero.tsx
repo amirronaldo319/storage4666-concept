@@ -1,0 +1,38 @@
+import { Button } from '../components/Button'
+import { HeroArt } from '../components/HeroArt'
+import { useI18n, type Key } from '../i18n'
+import { useInquiry } from '../inquiry/InquiryContext'
+
+const FACTS = [1, 2, 3, 4] as const
+
+export function Hero() {
+  const { t } = useI18n()
+  const { open } = useInquiry()
+  return (
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">{t('hero.eyebrow')}</p>
+          <h1 id="hero-title">{t('hero.h1')}</h1>
+          <p className="lead">{t('hero.lead')}</p>
+          <div className="cta-row">
+            <Button onClick={() => open()}>{t('hero.ctaPrimary')}</Button>
+            <a className="btn btn-ghost" href="#guide">{t('hero.ctaSecondary')}</a>
+          </div>
+        </div>
+        <figure className="hero-art">
+          <HeroArt />
+          <figcaption>{t('hero.caption')}</figcaption>
+        </figure>
+      </div>
+      <ul className="container facts">
+        {FACTS.map((n) => (
+          <li key={n}>
+            <strong>{t(`hero.fact${n}.value` as Key)}</strong>
+            <span>{t(`hero.fact${n}.label` as Key)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

@@ -1,0 +1,65 @@
+:root {
+  /* Colour — starting point is the existing brand orange (#E8792F) and near-black (#1B1B1B); the rest is a proposal. */
+  --paper: #f6f2ea;
+  --paper-2: #ece6da;
+  --surface: #fcfaf6;
+  --ink: #1b1b1b;
+  --ink-2: #4a4741;
+  --ink-3: #66615a;
+  --line: #d6cebf;
+  --night: #1b1b1b;
+  --night-2: #262624;
+  --night-line: #3d3c38;
+  --on-night: #f6f2ea;
+  --on-night-2: #c4bdaf;
+  --accent: #e8792f;
+  --accent-hover: #f08c47;
+  --accent-press: #d06a22;
+  --accent-ink: #9a3f07;
+  --ok: #1e6b3a;
+  --err: #b3261e;
+  --focus: #1b1b1b;
+
+  /* Type */
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --fs-body: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
+  --fs-small: 0.9375rem;
+  --fs-h1: clamp(2.375rem, 1.6rem + 3.6vw, 4.5rem);
+  --fs-h2: clamp(1.875rem, 1.45rem + 1.9vw, 3rem);
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --lh-body: 1.55;
+  --measure: 62ch;
+
+  /* Space (4px base) */
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+  --s8: 4.5rem;
+  --section-y: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  --gutter: 1rem;
+  --container: 72.5rem;
+
+  /* Shape */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --shadow-1: 0 1px 2px rgb(27 27 27 / 0.08);
+  --shadow-2: 0 8px 24px -12px rgb(27 27 27 / 0.28);
+
+  /* Motion */
+  --t-fast: 140ms;
+  --t-med: 220ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --header-h: 64px;
+  color-scheme: light;
+}
+
+@media (min-width: 48em) {
+  :root { --gutter: 1.5rem; --header-h: 72px; }
+}

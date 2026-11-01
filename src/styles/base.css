@@ -1,0 +1,69 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--fs-body) / var(--lh-body) var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); font-weight: 800; letter-spacing: -0.03em; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); line-height: 1.2; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol, dl, dd, figure { margin: 0; padding: 0; }
+li { list-style: none; }
+img, svg { display: block; max-width: 100%; }
+address { font-style: normal; }
+
+a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+.on-night :focus-visible, .section-dark :focus-visible, .site-footer :focus-visible { outline-color: var(--on-night); }
+.btn-primary:focus-visible { outline-color: var(--ink); outline-offset: 3px; }
+main:focus { outline: none; }
+[tabindex='-1']:focus { outline: none; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+.container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+
+.skip-link {
+  position: absolute; left: var(--s4); top: -100px; z-index: 100;
+  background: var(--ink); color: var(--on-night); padding: var(--s3) var(--s4); border-radius: var(--r-sm);
+}
+.skip-link:focus { top: var(--s3); }
+
+/* Entrance motion: content stays visible unless the observer is running. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal]:not(.in) { opacity: 0; transform: translateY(14px); }
+  [data-reveal] { transition: opacity 320ms var(--ease), transform 320ms var(--ease); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
