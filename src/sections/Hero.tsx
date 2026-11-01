@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Button } from '../components/Button'
 import { CountUp } from '../components/CountUp'
+import { DotGrid } from '../components/DotGrid'
 import { HeroArt } from '../components/HeroArt'
 import { useI18n, type Key } from '../i18n'
 import { useInquiry } from '../inquiry/InquiryContext'
@@ -12,6 +13,7 @@ export function Hero() {
   const { open } = useInquiry()
   return (
     <section className="hero" aria-labelledby="hero-title">
+      <DotGrid />
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="eyebrow">{t('hero.eyebrow')}</p>

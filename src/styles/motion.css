@@ -113,3 +113,8 @@
     @keyframes par-glow { to { translate: 0 6rem; } }
   }
 }
+
+/* Interactive dot grid behind the hero (drawn only for fine pointers without reduced motion) */
+.dot-grid { position: absolute; inset: 0; z-index: 0 !important; pointer-events: none; color: rgb(138 90 50 / 0.28); }
+@media (prefers-color-scheme: dark) { .dot-grid { color: rgb(255 240 225 / 0.2); } }
+@media (prefers-reduced-motion: reduce), (hover: none) { .dot-grid { display: none; } }
