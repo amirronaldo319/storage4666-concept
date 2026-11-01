@@ -25,7 +25,7 @@ export function Ladder({ rec }: { rec: Extract<Recommendation, { kind: 'plan' }>
           const active = it.id === rec.planId
           const cx = 35 + i * 70
           return (
-            <g key={it.id} className={active ? 'ladder-item is-active' : 'ladder-item'}>
+            <g key={it.id} className={active ? 'ladder-item is-active' : 'ladder-item'} style={{ ['--i' as string]: i }}>
               {'r' in it ? (
                 <>
                   <circle cx={cx} cy="28" r={it.r} />
@@ -35,7 +35,7 @@ export function Ladder({ rec }: { rec: Extract<Recommendation, { kind: 'plan' }>
                 <rect x={cx - 20} y="10" width="40" height="36" rx="4" />
               )}
               <text x={cx} y="62" textAnchor="middle">{it.label}</text>
-              {active && <path d={`M${cx - 6} 28.5l4.5 4.5 8-9`} className="tick" />}
+              {active && <path d={`M${cx - 6} 28.5l4.5 4.5 8-9`} className="tick" pathLength={1} />}
             </g>
           )
         })}

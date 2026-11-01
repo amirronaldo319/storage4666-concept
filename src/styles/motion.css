@@ -71,3 +71,18 @@
     .service-list li:hover .service-n { transform: translateX(6px) scale(1.08); }
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Plan ladder: tiers pop in, the chosen one pulses once and its tick draws itself */
+  .ladder-item { transform-box: fill-box; transform-origin: center; animation: pop 640ms var(--spring-bounce) both; animation-delay: calc(var(--i) * 90ms); }
+  @keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+  .ladder-item.is-active { animation-name: pop, chosen; animation-duration: 640ms, 900ms; animation-delay: calc(var(--i) * 90ms), 600ms; animation-fill-mode: both, none; }
+  @keyframes chosen { 40% { transform: scale(1.12); } }
+  .ladder .tick { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 520ms ease-out 700ms forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* Inquiry progress: the current segment fills in */
+  .progress li { transform-origin: left center; }
+  .progress li.is-current { animation: seg-fill 520ms var(--spring) both; }
+  @keyframes seg-fill { from { transform: scaleX(0.2); opacity: 0.4; } to { transform: none; opacity: 1; } }
+}
