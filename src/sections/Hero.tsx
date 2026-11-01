@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Button } from '../components/Button'
+import { CountUp } from '../components/CountUp'
 import { HeroArt } from '../components/HeroArt'
 import { useI18n, type Key } from '../i18n'
 import { useInquiry } from '../inquiry/InquiryContext'
@@ -37,7 +38,7 @@ export function Hero() {
       <ul className="container facts">
         {FACTS.map((n) => (
           <li key={n}>
-            <strong>{t(`hero.fact${n}.value` as Key)}</strong>
+            <strong>{n === 2 ? <CountUp text={t(`hero.fact${n}.value` as Key)} /> : t(`hero.fact${n}.value` as Key)}</strong>
             <span>{t(`hero.fact${n}.label` as Key)}</span>
           </li>
         ))}

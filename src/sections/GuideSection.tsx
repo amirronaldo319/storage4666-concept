@@ -1,3 +1,4 @@
+import { ScrubText } from '../components/ScrubText'
 import { Guide } from '../guide/Guide'
 import { useI18n } from '../i18n'
 
@@ -8,7 +9,7 @@ export function GuideSection() {
       <div className="container">
         <header className="section-head section-head-wide" data-reveal>
           <h2 id="guide-h">{t('guide.h2')}</h2>
-          <p>{t('guide.lead')}</p>
+          <p><ScrubText text={t('guide.lead')} /></p>
         </header>
         <div data-reveal><Guide /></div>
       </div>

@@ -86,3 +86,30 @@
   .progress li.is-current { animation: seg-fill 520ms var(--spring) both; }
   @keyframes seg-fill { from { transform: scaleX(0.2); opacity: 0.4; } to { transform: none; opacity: 1; } }
 }
+
+/* ---- Ideas borrowed from the Motion Kit: scrubbed words, parallax, aurora (CSS only) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .count { font-variant-numeric: tabular-nums; }
+
+  /* Aurora behind the dark guide section: blurred colour fields drifting slowly, kept dim */
+  #guide { position: relative; overflow: hidden; isolation: isolate; }
+  #guide::before, #guide::after {
+    content: ''; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%; filter: blur(60px); opacity: 0.35;
+  }
+  #guide::before { width: 40rem; height: 22rem; left: -10rem; top: -6rem; background: radial-gradient(closest-side, rgb(232 121 47 / 0.55), transparent); animation: aurora-a 18s ease-in-out infinite alternate; }
+  #guide::after { width: 34rem; height: 20rem; right: -8rem; bottom: -6rem; background: radial-gradient(closest-side, rgb(94 168 160 / 0.45), transparent); animation: aurora-b 22s ease-in-out infinite alternate; }
+  @keyframes aurora-a { to { transform: translate3d(14rem, 5rem, 0) scale(1.2); } }
+  @keyframes aurora-b { to { transform: translate3d(-12rem, -4rem, 0) scale(1.25); } }
+
+  @supports (animation-timeline: view()) {
+    /* Scroll-scrubbed words: each word brightens as the paragraph crosses the viewport */
+    .scrub-w { opacity: 0.28; animation: scrub-in linear both; animation-timeline: view(); animation-range: calc(15% + var(--k) * 40%) calc(30% + var(--k) * 40%); }
+    @keyframes scrub-in { to { opacity: 1; } }
+
+    /* Parallax: hero art lags the scroll, the glow lags more */
+    .hero-art { animation-name: settle, par-art; animation-timeline: auto, scroll(root); animation-range: normal, 0 40rem; animation-fill-mode: both, both; animation-duration: 900ms, 1ms; animation-delay: 180ms, 0s; animation-timing-function: var(--spring), linear; }
+    .hero::before { animation-name: drift, par-glow; animation-timeline: auto, scroll(root); animation-range: normal, 0 40rem; animation-duration: 14s, 1ms; animation-timing-function: ease-in-out, linear; animation-iteration-count: infinite, 1; animation-direction: alternate, normal; animation-composition: replace, add; }
+    @keyframes par-art { to { translate: 0 -2.5rem; } }
+    @keyframes par-glow { to { translate: 0 6rem; } }
+  }
+}
