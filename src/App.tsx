@@ -12,14 +12,17 @@ import { Plans } from './sections/Plans'
 import { Practical } from './sections/Practical'
 import { Services } from './sections/Services'
 import { useRevealOnScroll } from './useReveal'
+import { useSpotlight } from './useSpotlight'
 
 function Page() {
   const { t } = useI18n()
   useRevealOnScroll()
+  useSpotlight()
   return (
     <>
       <a className="skip-link" href="#main">{t('a11y.skip')}</a>
       <div className="demo-banner" role="note">{t('demo.banner')}</div>
+      <div className="scroll-progress" aria-hidden="true" />
       <Header />
       <main id="main" tabIndex={-1}>
         <span id="top" />

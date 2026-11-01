@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Button } from '../components/Button'
 import { HeroArt } from '../components/HeroArt'
 import { useI18n, type Key } from '../i18n'
@@ -13,7 +14,15 @@ export function Hero() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="eyebrow">{t('hero.eyebrow')}</p>
-          <h1 id="hero-title">{t('hero.h1')}</h1>
+          <h1 id="hero-title" aria-label={t('hero.h1')}>
+            {t('hero.h1').split(' ').map((w, i) => (
+              <Fragment key={i}>
+                <span className="word" aria-hidden="true">
+                  <span style={{ ['--w' as string]: i }}>{w}</span>
+                </span>{' '}
+              </Fragment>
+            ))}
+          </h1>
           <p className="lead">{t('hero.lead')}</p>
           <div className="cta-row">
             <Button onClick={() => open()}>{t('hero.ctaPrimary')}</Button>

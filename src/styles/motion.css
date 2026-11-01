@@ -1,0 +1,73 @@
+/* Motion layer: expressive, but only transform/opacity, and none of it under reduced motion. */
+
+.scroll-progress { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll progress bar (progressive: browsers with scroll-driven animations) */
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60;
+      background: linear-gradient(90deg, var(--accent), var(--accent-ink));
+      transform-origin: 0 50%; transform: scaleX(0);
+      animation: progress linear both; animation-timeline: scroll(root);
+    }
+  }
+  @keyframes progress { to { transform: scaleX(1); } }
+
+  /* Hero headline: words rise out of a mask, staggered */
+  .hero h1 .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .hero h1 .word > span { display: inline-block; animation: word-up 820ms var(--spring) both; animation-delay: calc(120ms + var(--w) * 70ms); }
+  @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
+  .hero-copy > h1 { animation: none; }
+
+  /* Hero glow drifts slowly (small, low-contrast, never full-viewport) */
+  .hero { position: relative; overflow-x: clip; }
+  .hero::before {
+    content: ''; position: absolute; width: 28rem; height: 28rem; right: -6rem; top: -8rem; border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(232 121 47 / 0.22), transparent); filter: blur(8px);
+    animation: drift 14s ease-in-out infinite alternate; pointer-events: none; z-index: 0;
+  }
+  .hero > * { position: relative; z-index: 1; }
+  @keyframes drift { to { transform: translate3d(-3rem, 2.5rem, 0) scale(1.12); } }
+
+  /* Rack illustration: tires drop in with a bounce, tags swing, dashed path travels */
+  .art-drop, .art-spin, .art-tag { transform-box: fill-box; transform-origin: center; }
+  .art-drop { animation: tire-drop 900ms var(--spring-bounce) both; animation-delay: calc(350ms + var(--i) * 80ms); }
+  @keyframes tire-drop { from { transform: translateY(-46px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .art-spin { animation: tire-roll 1400ms var(--spring) both; animation-delay: calc(350ms + var(--i) * 80ms); }
+  @keyframes tire-roll { from { transform: rotate(-200deg); } to { transform: none; } }
+  .art-tag { transform-origin: 50% 0; animation: tag-swing 3.6s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.7s); }
+  @keyframes tag-swing { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+  .art-dash { animation: dash-run 1.2s linear infinite; }
+  @keyframes dash-run { to { stroke-dashoffset: -16; } }
+  @media (hover: hover) and (pointer: fine) {
+    .hero-svg .art-spin { transition: transform 700ms var(--spring); }
+    .hero-svg .art-drop:hover .art-spin { transform: rotate(180deg); }
+  }
+
+  /* Buttons: a soft light sweep on hover */
+  .btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+  .btn-primary::after {
+    content: ''; position: absolute; inset: 0; z-index: -1; transform: translateX(-120%);
+    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover::after { transform: translateX(120%); transition: transform 700ms ease-out; }
+  }
+
+  /* Pointer-following spotlight on cards */
+  @media (hover: hover) and (pointer: fine) {
+    :is(.service-list li, .facts li, .steps li, .faq details, .info-list li) { position: relative; }
+    :is(.service-list li, .facts li, .steps li, .faq details, .info-list li)::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 300ms ease;
+      background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 50%), rgb(232 121 47 / 0.12), transparent 60%);
+    }
+    :is(.service-list li, .facts li, .steps li, .faq details, .info-list li):hover::before { opacity: 1; }
+  }
+
+  /* Service numbers and step badges nudge on hover */
+  @media (hover: hover) and (pointer: fine) {
+    .service-n { transition: transform 420ms var(--spring-bounce), color 200ms; }
+    .service-list li:hover .service-n { transform: translateX(6px) scale(1.08); }
+  }
+}

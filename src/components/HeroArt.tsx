@@ -37,8 +37,20 @@ export function HeroArt() {
       {[130, 262].map((y, row) =>
         tireXs.map((x, i) => (
           <g key={`${y}-${x}`}>
-            <use href="#tire" x={x} y={y - 39} />
-            {((row === 0 && i % 2 === 0) || (row === 1 && i === 1)) && <use href="#tag" x={x + 22} y={y - 82} />}
+            <g transform={`translate(${x} ${y - 39})`}>
+              <g className="art-drop" style={{ ['--i' as string]: row * 4 + i }}>
+                <g className="art-spin">
+                  <use href="#tire" />
+                </g>
+              </g>
+            </g>
+            {((row === 0 && i % 2 === 0) || (row === 1 && i === 1)) && (
+              <g transform={`translate(${x + 22} ${y - 82})`}>
+                <g className="art-tag" style={{ ['--i' as string]: i }}>
+                  <use href="#tag" />
+                </g>
+              </g>
+            )}
           </g>
         )),
       )}
@@ -48,10 +60,14 @@ export function HeroArt() {
           {[0, 1, 2].map((n) => (
             <rect key={n} x={x} y={394 - 26 - n * 24} width="100" height="24" rx="12" fill="#2a2a28" stroke="#4b4a45" strokeWidth="1.5" />
           ))}
-          <use href="#tag" x={x + 42} y={394 - 100} />
+          <g transform={`translate(${x + 42} ${394 - 100})`}>
+            <g className="art-tag" style={{ ['--i' as string]: x / 60 }}>
+              <use href="#tag" />
+            </g>
+          </g>
         </g>
       ))}
-      <path d="M346 394h60" stroke="#e8792f" strokeWidth="3" strokeDasharray="2 6" strokeLinecap="round" />
+      <path className="art-dash" d="M346 394h60" stroke="#e8792f" strokeWidth="3" strokeDasharray="2 6" strokeLinecap="round" />
     </svg>
   )
 }
