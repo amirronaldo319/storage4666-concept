@@ -228,3 +228,13 @@
 .contact-list dd a { display: inline-flex; align-items: center; min-height: 44px; }
 .lang button { min-height: 44px; }
 @media (max-width: 30em) { .lang button { min-width: 40px; } }
+
+/* ≤ 360 px: keep the whole header inside the viewport */
+@media (max-width: 23em) {
+  .wordmark svg { display: none; }
+  .wordmark { font-size: 1rem; }
+  .lang button { min-width: 34px; padding-inline: 0.4rem; }
+  .header-cta { display: none; } /* the hero and the menu keep the inquiry entry point */
+  .header-tools { gap: 4px; }
+  .menu-btn { min-width: 44px; }
+}
