@@ -1,0 +1,141 @@
+/* Material, motion and mobile-native layer. Loaded last; builds on tokens.css. */
+
+/* ---------- Mobile-native ---------- */
+html { background: var(--paper); -webkit-tap-highlight-color: transparent; }
+a, button, summary, label.choice, input, select, textarea { touch-action: manipulation; }
+.btn, .icon-btn, .lang button, .stepper button, .menu-btn, .link-button, summary {
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+.container {
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+}
+.inq-head { padding-top: max(var(--s3), env(safe-area-inset-top)); }
+@media (min-width: 40em) { .inq-head { padding-top: var(--s3); } }
+
+/* ---------- Typography: tracking tightens as size grows ---------- */
+body { font-optical-sizing: auto; }
+h1 { letter-spacing: -0.04em; line-height: 1.02; }
+h2 { letter-spacing: -0.03em; line-height: 1.05; }
+h3 { letter-spacing: -0.018em; }
+.facts strong, .ledger-price span, .result-name, .step-n { letter-spacing: -0.03em; }
+.ledger-price span, .plan-table td, .result-price, .facts strong { font-variant-numeric: tabular-nums; }
+.lead { letter-spacing: -0.005em; }
+
+/* ---------- Liquid glass (only where it clarifies hierarchy) ---------- */
+.site-header {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-med) var(--ease);
+}
+.site-header[data-scrolled='true'] { border-bottom-color: var(--glass-line); }
+@media (max-width: 71.99em) {
+  .nav[data-open='true'] {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: saturate(180%) blur(28px);
+    backdrop-filter: saturate(180%) blur(28px);
+    border-bottom: 1px solid var(--glass-line);
+    box-shadow: inset 0 1px 0 var(--glass-edge), var(--shadow-2);
+  }
+}
+.hero-svg { box-shadow: 0 0 0 1px var(--glass-line), var(--shadow-2); }
+.guide-result {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02)), var(--night-2);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), var(--shadow-2);
+}
+.hero { background: radial-gradient(52rem 26rem at 88% -8%, rgb(232 121 47 / 0.13), transparent 62%); }
+
+/* Fallbacks: no blur support, reduced transparency, or higher contrast -> solid surfaces. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header, .nav[data-open='true'] { background: var(--paper); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .site-header, .nav[data-open='true'] { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .inq::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(0 0 0 / 0.75); }
+}
+@media (prefers-contrast: more) {
+  :root { --line: var(--ink-3); --glass-line: var(--ink-2); }
+  .site-header, .nav[data-open='true'] { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: var(--ink); }
+}
+
+/* ---------- Motion: springs for touchable things, 100ms press feedback ---------- */
+.btn, .icon-btn, .lang button, .stepper button, .choice {
+  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-duration: var(--t-fast); transition-timing-function: var(--ease);
+}
+.btn:not(:active), .icon-btn:not(:active), .choice:not(:active), .stepper button:not(:active) {
+  transition-duration: var(--t-fast), var(--t-fast), var(--t-fast), var(--t-fast), 420ms;
+  transition-timing-function: var(--ease), var(--ease), var(--ease), var(--ease), var(--spring);
+}
+.btn:active:not(:disabled), .icon-btn:active { transform: scale(0.96); transition-duration: 90ms; }
+.choice:active { transform: scale(0.985); }
+.choice-mark svg { transform: scale(0.4); opacity: 0; transition: transform 360ms var(--spring-bounce), opacity var(--t-fast); }
+.choice:has(input:checked) .choice-mark svg { transform: scale(1); opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .ledger-col, .service-list li { transition: background-color var(--t-med) var(--ease); }
+  .ledger-col:hover { background: var(--surface-strong); }
+  .plan-table tbody tr:hover > * { background: var(--paper); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: staged entrance */
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes settle { from { opacity: 0; transform: translateY(20px) scale(0.975); } to { opacity: 1; transform: none; } }
+  .hero-copy > * { animation: rise 760ms var(--spring) both; }
+  .hero-copy > :nth-child(1) { animation-delay: 40ms; }
+  .hero-copy > :nth-child(2) { animation-delay: 110ms; }
+  .hero-copy > :nth-child(3) { animation-delay: 190ms; }
+  .hero-copy > :nth-child(4) { animation-delay: 270ms; }
+  .hero-art { animation: settle 900ms var(--spring) 180ms both; }
+  .facts li { animation: rise 700ms var(--spring) both; }
+  .facts li:nth-child(1) { animation-delay: 360ms; } .facts li:nth-child(2) { animation-delay: 420ms; }
+  .facts li:nth-child(3) { animation-delay: 480ms; } .facts li:nth-child(4) { animation-delay: 540ms; }
+
+  /* Scroll reveals: spring settle, children staggered 60ms apart */
+  [data-reveal] { transition: opacity 520ms ease-out, transform 760ms var(--spring); }
+  :is(.service-list, .steps, .ledger, .info-list, .faq)[data-reveal] { transition: none; }
+  .reveal-ready :is(.service-list, .steps, .ledger, .info-list, .faq)[data-reveal]:not(.in) { opacity: 1; transform: none; }
+  :is(.service-list > li, .steps > li, .ledger > .ledger-col, .info-list > article, .faq > details) {
+    transition: opacity 520ms ease-out, transform 760ms var(--spring); transition-delay: calc(var(--i, 0) * 60ms);
+  }
+  .reveal-ready :is(.service-list, .steps, .ledger, .info-list, .faq)[data-reveal]:not(.in) > * { opacity: 0; transform: translateY(14px); }
+  :is(.service-list, .steps, .ledger, .info-list, .faq) > :nth-child(2) { --i: 1; }
+  :is(.service-list, .steps, .ledger, .info-list, .faq) > :nth-child(3) { --i: 2; }
+  :is(.service-list, .steps, .ledger, .info-list, .faq) > :nth-child(4) { --i: 3; }
+  :is(.service-list, .steps, .ledger, .info-list, .faq) > :nth-child(5) { --i: 4; }
+  :is(.service-list, .steps, .ledger, .info-list, .faq) > :nth-child(n + 6) { --i: 5; }
+
+  /* Mobile menu: drops from the header and returns the same way */
+  .nav[data-open='true'] { animation: menu-in 340ms var(--spring); transform-origin: top; }
+}
+
+/* ---------- Dialog: sheet on phones, material pop on larger screens; symmetric enter/exit ---------- */
+.inq {
+  opacity: 0; transform: translateY(100%);
+  transition: opacity var(--t-med) ease, transform 420ms var(--spring), overlay 420ms allow-discrete, display 420ms allow-discrete;
+}
+.inq[open] { opacity: 1; transform: none; animation: none; }
+@starting-style { .inq[open] { opacity: 0; transform: translateY(100%); } }
+.inq::backdrop {
+  background: rgb(0 0 0 / 0.5); -webkit-backdrop-filter: blur(10px) saturate(120%); backdrop-filter: blur(10px) saturate(120%);
+  opacity: 0; transition: opacity 320ms ease, overlay 320ms allow-discrete, display 320ms allow-discrete;
+}
+.inq[open]::backdrop { opacity: 1; }
+@starting-style { .inq[open]::backdrop { opacity: 0; } }
+@media (min-width: 40em) {
+  .inq { transform: translateY(18px) scale(0.97); transform-origin: 50% 40%; }
+  @starting-style { .inq[open] { opacity: 0; transform: translateY(18px) scale(0.97); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inq, .inq[open] { transform: none; }
+  @starting-style { .inq[open] { transform: none; } }
+}
+/* Step content eases in without delaying input */
+@media (prefers-reduced-motion: no-preference) {
+  .inq-body > * { animation: rise 320ms var(--spring) both; }
+  .inq-body > :nth-child(n + 4) { animation-delay: 40ms; }
+}
+
+.wm-bg { fill: var(--ink); }

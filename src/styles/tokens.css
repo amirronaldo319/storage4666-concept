@@ -19,6 +19,15 @@
   --ok: #1e6b3a;
   --err: #b3261e;
   --focus: #1b1b1b;
+  --on-accent: #1b1b1b;
+  --surface-strong: #ffffff;
+  --notice-bg: #fbefe2;
+  --notice-border: #e3b88f;
+  --notice-ink: #5a2a06;
+  --field-border: #8f887a;
+  --glass-bg: rgb(246 242 234 / 0.72);
+  --glass-edge: rgb(255 255 255 / 0.65);
+  --glass-line: rgb(27 27 27 / 0.1);
 
   /* Type */
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
@@ -55,6 +64,10 @@
   --t-fast: 140ms;
   --t-med: 220ms;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Critically damped spring (damping 1.0, ~0.4s response) sampled as a CSS easing. */
+  --spring: linear(0, 0.2 6%, 0.52 13%, 0.74 20%, 0.88 28%, 0.96 38%, 0.99 50%, 1);
+  /* Same spring with a little overshoot, only for momentum-like release (sheets). */
+  --spring-bounce: linear(0, 0.34 8%, 0.75 16%, 1.02 25%, 1.06 32%, 1.03 40%, 0.995 54%, 1);
 
   --header-h: 64px;
   color-scheme: light;
@@ -62,4 +75,34 @@
 
 @media (min-width: 48em) {
   :root { --gutter: 1.5rem; --header-h: 72px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f0f10;
+    --paper-2: #171718;
+    --surface: #1d1d1f;
+    --surface-strong: #242427;
+    --ink: #f5f1ea;
+    --ink-2: #bdb7ab;
+    --ink-3: #9d978b;
+    --line: #313130;
+    --field-border: #6f6a60;
+    --night: #070708;
+    --night-2: #151517;
+    --night-line: #2c2c2e;
+    --accent-ink: #f2a06a;
+    --focus: #f5f1ea;
+    --ok: #5fc27f;
+    --err: #ff8a80;
+    --notice-bg: #2a1d12;
+    --notice-border: #5c3b1f;
+    --notice-ink: #f1d3b8;
+    --glass-bg: rgb(20 20 21 / 0.66);
+    --glass-edge: rgb(255 255 255 / 0.12);
+    --glass-line: rgb(255 255 255 / 0.1);
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-2: 0 14px 34px -14px rgb(0 0 0 / 0.75);
+    color-scheme: dark;
+  }
 }

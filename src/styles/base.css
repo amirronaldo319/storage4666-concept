@@ -36,7 +36,7 @@ img, svg { display: block; max-width: 100%; }
 address { font-style: normal; }
 
 a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-a:hover { text-decoration-thickness: 2px; }
+@media (hover: hover) and (pointer: fine) { a:hover { text-decoration-thickness: 2px; } }
 
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
 .on-night :focus-visible, .section-dark :focus-visible, .site-footer :focus-visible { outline-color: var(--on-night); }
@@ -54,7 +54,7 @@ main:focus { outline: none; }
 
 .skip-link {
   position: absolute; left: var(--s4); top: -100px; z-index: 100;
-  background: var(--ink); color: var(--on-night); padding: var(--s3) var(--s4); border-radius: var(--r-sm);
+  background: var(--ink); color: var(--paper); padding: var(--s3) var(--s4); border-radius: var(--r-sm);
 }
 .skip-link:focus { top: var(--s3); }
 

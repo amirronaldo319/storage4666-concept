@@ -5,3 +5,9 @@
 - Lighthouse 12.8.2 (mobile emulation, headless local Chrome, `vite preview`, local run — not field data): Performance 99, Accessibility 100, Best Practices 100; LCP 1.6 s, TBT 60 ms, CLS 0. SEO scored 54 in the first run because the page is intentionally `noindex` (and `vite preview` serves HTML for `/robots.txt`); it was not re-run.
 - Browser inspection at 375, 390, 768, 1024, 1440 widths: no horizontal overflow (375 and 768 measured by script; others visually); mobile menu (expanded state, Escape, focus return); anchor offsets under the sticky header; guide selection; validation messages; review; completion; FR→EN in the final state. Network activity after completion showed only dev-server module reloads. Screenshots in `docs/screenshots/` (headless Chrome).
 - Not done: real screen-reader testing, physical-phone keyboard testing, axe beyond Lighthouse, reduced-motion visual check (CSS present, not exercised in a browser), ESLint (not configured), Playwright E2E.
+
+## Apple-inspired pass (2026-11-01)
+
+- Added: dark mode tokens, glass materials, spring motion, dialog sheet transitions, mobile-native fixes (`src/styles/apple.css`, tokens, `Header` scroll state).
+- Re-run: typecheck, 26 tests, production build all pass. Lighthouse mobile (local, light scheme): Performance 99, Accessibility 100, Best Practices 100; LCP 1.6 s, TBT 60 ms, CLS 0. A second run with Chrome's force-dark flag gave the same scores, but that flag is not a true `prefers-color-scheme` test.
+- Dark mode and the dialog sheet were inspected visually in the browser pane at 390 px (dark) and 1440 px (light). Not exercised: reduced-motion/transparency/contrast media queries in a browser, 320/430/1920 px widths, real iOS Safari.

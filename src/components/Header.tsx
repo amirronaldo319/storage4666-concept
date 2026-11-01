@@ -16,8 +16,17 @@ export function Header() {
   const { t } = useI18n()
   const { open } = useInquiry()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const btnRef = useRef<HTMLButtonElement>(null)
   const navRef = useRef<HTMLElement>(null)
+
+  // Scroll-edge: the hairline under the glass appears only once content slides beneath it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -33,7 +42,7 @@ export function Header() {
   }, [menuOpen])
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-scrolled={scrolled || menuOpen}>
       <div className="container header-row">
         <a href="#top" className="brand" aria-label="Storage4666" onClick={() => setMenuOpen(false)}>
           <Wordmark />

@@ -24,7 +24,10 @@ The build uses a relative base (`./`), so `dist/` works from a GitHub Pages subd
 - **Colour:** brand orange `#E8792F` (from the current site) is the single action colour with ink text (6:1); `#9A3F07` for orange text on paper. Tokens in `src/styles/tokens.css`.
 - **Type:** Bricolage Grotesque Variable (display, self-hosted) + system UI stack for body.
 - **Imagery:** the site's photos were not reused; the hero is a hand-drawn rack illustration, captioned as an illustration.
-- **Motion:** 140–320 ms opacity/transform only; off under `prefers-reduced-motion`; content visible if JS fails.
+- **Motion:** spring easing via CSS `linear()` (critically damped; a small bounce only for the sheet); 90 ms press feedback; opacity/transform only; staged hero entrance and 60 ms-staggered reveals; dialog is a bottom sheet on phones with the same path in and out. Off under `prefers-reduced-motion`; content stays visible if JS fails.
+- **Materials:** glass header and mobile menu (`backdrop-filter`, bright top edge, hairline that appears on scroll); blurred scrim behind the dialog. Solid fallbacks for no blur support, `prefers-reduced-transparency` and `prefers-contrast: more`.
+- **Dark mode:** follows the system setting (`prefers-color-scheme`), with matching `theme-color` meta.
+- **Mobile-native:** hover styles gated to hover-capable pointers, no tap-highlight flash, `touch-action: manipulation`, `viewport-fit=cover` with safe-area padding, 16 px inputs.
 
 ## Structure
 

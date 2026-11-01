@@ -1,5 +1,5 @@
 /* Header */
-.site-header { position: sticky; top: 0; z-index: 50; background: rgb(246 242 234 / 0.96); border-bottom: 1px solid var(--line); backdrop-filter: saturate(1.2) blur(6px); }
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid transparent; }
 .header-row { display: flex; align-items: center; gap: var(--s3); min-height: var(--header-h); }
 .brand { text-decoration: none; display: inline-flex; min-height: 44px; align-items: center; margin-right: auto; }
 .wordmark { display: inline-flex; align-items: center; gap: 0.55rem; font: 600 1.25rem var(--font-display); letter-spacing: -0.02em; }
@@ -10,7 +10,7 @@
 .nav { display: none; }
 .nav ul { display: flex; gap: var(--s1); }
 .nav a { white-space: nowrap; display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.75rem; text-decoration: none; font-weight: 550; border-radius: var(--r-sm); }
-.nav a:hover { background: var(--paper-2); }
+@media (hover: hover) and (pointer: fine) { .nav a:hover { background: var(--paper-2); } }
 .menu-btn { display: inline-grid; }
 @media (max-width: 71.99em) {
   .nav[data-open='true'] {
@@ -143,9 +143,9 @@
 .ladder-item .hub { fill: #6b675f; stroke: none; }
 .ladder-item text { fill: var(--on-night-2); font: 600 11px var(--font-body); }
 .ladder-item.is-active circle:first-child, .ladder-item.is-active rect { fill: var(--accent); stroke: var(--accent); }
-.ladder-item.is-active .hub { fill: var(--ink); }
+.ladder-item.is-active .hub { fill: var(--on-accent); }
 .ladder-item.is-active text { fill: var(--on-night); }
-.ladder .tick { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.ladder .tick { fill: none; stroke: var(--on-accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 @media (min-width: 60em) {
   .guide-grid { grid-template-columns: 1fr 1fr; gap: var(--s7); align-items: start; }
   .guide-result { position: sticky; top: calc(var(--header-h) + var(--s5)); }
@@ -166,7 +166,7 @@
 .season-bar { display: grid; grid-template-columns: repeat(12, 1fr); border: 1px solid var(--ink); border-radius: var(--r-sm); overflow: hidden; max-width: 28rem; }
 .season-bar span { text-align: center; font: 700 0.8125rem/2.1 var(--font-body); }
 .season-bar .is-winter { background: var(--ink); color: var(--paper); }
-.season-bar .is-summer { background: var(--accent); color: var(--ink); }
+.season-bar .is-summer { background: var(--accent); color: var(--on-accent); }
 .seasons dl { display: grid; gap: var(--s2); }
 .seasons dl > div { display: flex; gap: var(--s3); flex-wrap: wrap; }
 .seasons dt { font-weight: 700; display: flex; align-items: center; gap: var(--s2); min-width: 6rem; }
@@ -187,7 +187,7 @@
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: '+'; flex: none; display: grid; place-items: center; width: 32px; height: 32px; border: 1.5px solid var(--ink); border-radius: 50%; font-size: 1.25rem; line-height: 1; transition: transform var(--t-med) var(--ease), background-color var(--t-fast) var(--ease); }
 .faq details[open] summary::after { content: '−'; background: var(--ink); color: var(--paper); }
-.faq summary:hover { color: var(--accent-ink); }
+@media (hover: hover) and (pointer: fine) { .faq summary:hover { color: var(--accent-ink); } }
 .faq details p { padding: 0 0 var(--s5); color: var(--ink-2); max-width: 58ch; }
 @supports (interpolate-size: allow-keywords) {
   .faq { interpolate-size: allow-keywords; }
